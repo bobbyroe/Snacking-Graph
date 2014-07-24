@@ -1,15 +1,16 @@
 log = console.log.bind console 
 width = window.innerWidth - 200
-height = window.innerHeight - 60
+height = window.innerHeight - 10
+left_pos = 450
 sort_strings = ['Name', 'weight_in_g', 'Protein_in_g', 'Saturated_Fat_in_g', 'Sugar_in_g', 'Sodium_in_mg']
 sort_string = 'Name'
 
-svg = d3.select("body").append("svg")
+svg = d3.select(".panel").append("svg")
     .attr("width", width)
     .attr("height", height)
 
 snack_data = []
-bar_height = 30
+bar_height = 25
 is_sorted_by_alpha = true
 y = d3.scale.ordinal()
     .rangeRoundBands([-20, height], .1, 1)
@@ -21,18 +22,16 @@ d3.csv "data/Snack_Composition.csv", type, (error, data) ->
     snack_data.sort((a, b) -> d3.ascending(a.Name, b.Name))
     y.domain( snack_data.map((d) -> d.Name) )
 
-    log snack_data
-
     bar = svg.selectAll("g")
         .data(snack_data)
         .enter().append("g")
         .on('click', (d, i) -> log d)
-        .attr("transform", (d, i) -> "translate(250, #{y(d.Name)})")
+        .attr("transform", (d, i) -> "translate(#{left_pos}, #{y(d.Name)})")
 
     # weight in g
 
     bar.append("rect")
-        .style('stroke-width', '2px')
+        .style('stroke-width', '1px')
         .style('stroke', 'rgba(0, 98, 255, 0.8)')
         .attr("width", (data, i) -> data.weight_in_g * scale)
         .attr("height", bar_height - 1)
@@ -70,7 +69,7 @@ d3.csv "data/Snack_Composition.csv", type, (error, data) ->
 
     bar.append("text")
         .attr('x', (data, i) -> data.weight_in_g * scale - 15)
-        .attr("y", bar_height - 12)
+        .attr("y", bar_height - 9)
         .text((d) -> "#{Math.round(d.weight_in_g)}g")
 
     bar.append("text")
@@ -90,7 +89,7 @@ update = ->
     transition = svg.transition().duration(500)
     transition.selectAll("g")
         .delay((d, i) -> i * 50)
-        .attr("transform", (d, i) -> "translate(250, #{y0(d.Name)})")
+        .attr("transform", (d, i) -> "translate(#{left_pos}, #{y0(d.Name)})")
 
 type = (d) ->
   d.weight_in_g = +d.weight_in_g # coerce to number
@@ -110,7 +109,26 @@ onKeyDown = (evt) ->
     if key_pressed is A
         log 'A'
 
-    # log key_pressed
+
+#
+d = document
+panel = d.querySelector '.panel'
+info_panel = d.querySelector '#info'
+showInfoPanel = ->
+    panel.classList.add 'scooched_right'
+    info_panel.classList.add 'open'
+    is_highlighing_points = false
+
+hideInfoPanel = ->
+    panel.classList.remove 'scooched_right'
+    info_panel.classList.remove 'open'
+    is_highlighing_points = true
+
+toggleInfoPanel = ->
+    if info_panel.classList.contains 'open'
+        hideInfoPanel()
+    else 
+        showInfoPanel()
 
 onClick = (evt) ->
     target = evt.target.tagName
@@ -122,6 +140,12 @@ onClick = (evt) ->
         if class_name is 'sugar' then sort_string = 'Sugar_in_g'
         if class_name is 'sodium' then sort_string = 'Sodium_in_mg'
         update()
+
+    if evt.target.id is 'nub'
+        toggleInfoPanel()
+    if evt.target.id is ''
+        hideInfoPanel()
+
     # log target, class_name
 
 document.addEventListener 'keydown', onKeyDown
