@@ -81,7 +81,7 @@ function init () {
 
     var brand_text = gs.append('text')
         .attr("text-anchor", "middle")
-        .attr('fill', 'rgba(255, 255, 255, 0.4')
+        .attr('fill', '#FFFFFF') // 'rgba(255, 255, 255, 0.4')
         .text(function(d, i) {
             return d.brand_name;
         }).attr('dy', function(d, i) {
