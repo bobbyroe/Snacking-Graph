@@ -2,32 +2,85 @@
 <html lang="en">
 <head>
 	<meta charset='UTF-8'/>
-	<title>Bobby Roe - Snacks</title>
-	<link rel="stylesheet" href="style/style.css">
-	
+	<title>Snacks</title> 
+	<style type="text/css">
+		body {
+			background: #000 url(images/grad.jpg) 50% 50% no-repeat;
+			font: 12px sans-serif;
+			margin: 0;
+			padding: 0;
+			color: #e0e0e0;
+		}
+		g {
+			cursor: pointer;
+		}
+		.key {
+			position: fixed;
+			bottom:0px;
+			height: 55px;
+			width: 100%;
+			background-color: rgba(255, 255, 255, 0.2);
+		}
+		ul {
+			list-style: none;
+		}
+		li {
+			cursor: pointer;
+			display: inline-block;
+			height: 30px;
+			margin-right: 25px;
+			padding-left: 5px;
+			border-left: 30px #F00 solid;
+			line-height: 30px;
+		}
+		.protein {
+			border-color: rgba(255, 64, 0, 1.0);
+			fill: rgba(255, 64, 0, 1.0);
+		}
+		.fat {
+			border-color: rgba(215, 215, 0, 1.0);
+			fill: rgba(215, 215, 0, 1.0);
+		}
+		.sugar {
+			border-color: rgba(255, 255, 255, 0.4);
+			fill: rgba(255, 255, 255, 0.4);
+		}
+		.sodium {
+			border-color: rgba(255, 255, 255, 1.0);
+			fill: rgba(255, 255, 255, 1.0);
+		}
+		.grade {
+			border-color: rgba(0, 215, 255, 1.0);
+			fill: rgba(0, 215, 255, 1.0);
+		}
+		.carbs {
+			border-color: rgba(0, 255, 0, 1.0);
+			fill: rgba(0, 255, 0, 1.0);
+		}
+		.fiber {
+			border-color: rgba(255, 0, 255, 1.0);
+			fill: rgba(255, 0, 255, 1.0);
+		}
+		.calories {
+			border-color: rgba(255, 0, 0, 1.0);
+			fill: rgba(255, 0, 0, 1.0);
+		}
+	</style> 
 </head> 
 <body>
-	<div class="panel"></div>
 	<div class="key">
 		<ul>
+			<li class="grade">Fooducate Grade</li>
 			<li class="protein">Protein</li>
-			<li class="fat">Fat</li>
+			<li class="fat">Sat. Fat</li>
 			<li class="sugar">Sugar</li>
-			<!-- <li class="sodium">Sodium</li> -->
+			<li class="sodium">Sodium</li>
+			<li class="carbs">Carbs</li>
+			<li class="fiber">Fiber</li>
+			<li class="calories">Calories</li>
 		</ul>
 	</div>
-	<div id="info" class="closed">
-		<h4>Get to know D3.js better and snack wisely</h4>
-		<br>
-		In this graph, snack weight is mapped to each bar's width<br>
-		and so are a snack's parts<br>
-		<br>
-		Click the key on the left to sort things<br>
-		<br>
-		See the <a href="https://github.com/bobbyroe/Snacking-Graph">source on github</a><br>
-		<div id="nub">info</div>
-	</div>
-	<div id="title">Snacks</div>
-<script src="libs/d3.js"></script>
-<script src="main.js"></script>
+<script src="js/libs/jquery-1.11.3.min.js"></script>
+<script src="js/libs/d3.js"></script>
+<script src="js/main.js"></script>
 </html>
